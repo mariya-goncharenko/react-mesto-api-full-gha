@@ -5,12 +5,16 @@ const { errors } = require('celebrate');
 const limiter = require('./middlewares/rateLimiter');
 const errorHandler = require('./middlewares/errorHandler');
 const config = require('./config');
+const { logger, requestLoggingMiddleware } = require('./middlewares/logger');
 const rootRouter = require('./routes');
 
 mongoose.set('strictQuery', true);
 mongoose.connect(config.DB_URL);
 
 const app = express();
+
+// Добавление middleware для логирования запросов
+app.use(requestLoggingMiddleware);
 
 app.use(helmet());
 app.use(express.json());
@@ -22,4 +26,6 @@ app.use(rootRouter);
 app.use(errors());
 app.use(errorHandler);
 
-app.listen(config.PORT);
+app.listen(config.PORT, () => {
+  logger.info(`Сервер запущен на порту ${config.PORT}`);
+});

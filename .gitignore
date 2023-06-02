@@ -1,6 +1,6 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-# dependencies
+# Dependency directory
 /node_modules
 /.pnp
 .pnp.js
@@ -18,6 +18,17 @@
 .env.test.local
 .env.production.local
 
+# Logs
+logs
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# Optional npm cache directory
+.npm
+
+# Optional REPL history
+.DS_Store
+.idea
+.vscode
