@@ -85,7 +85,7 @@ export default class Api {
 }
 
 const api = new Api({
-  baseUrl: "http://api.goncharenko.nomoredomains.rocks",
+  baseUrl: "https://api.goncharenko.nomoredomains.rocks",
   headers: {
     "Content-Type": "application/json",
   },

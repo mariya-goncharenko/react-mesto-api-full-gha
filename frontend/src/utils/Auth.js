@@ -1,4 +1,4 @@
-const BASE_URL = "http://api.goncharenko.nomoredomains.rocks"
+const BASE_URL = "https://api.goncharenko.nomoredomains.rocks"
 
 function checkResponse(res) {
   if (res.ok) {
