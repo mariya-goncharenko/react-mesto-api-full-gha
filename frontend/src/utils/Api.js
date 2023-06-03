@@ -85,9 +85,8 @@ export default class Api {
 }
 
 const api = new Api({
-  baseUrl: "https://mesto.nomoreparties.co/v1/cohort-60",
+  baseUrl: "https://api.goncharenko.nomoredomains.rocks",
   headers: {
-    authorization: "dcf4edee-ca14-49b3-93d1-3710d22ba9f3",
     "Content-Type": "application/json",
   },
 });
