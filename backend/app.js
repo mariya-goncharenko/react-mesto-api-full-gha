@@ -4,6 +4,7 @@ const helmet = require('helmet');
 const { errors } = require('celebrate');
 const limiter = require('./middlewares/rateLimiter');
 const errorHandler = require('./middlewares/errorHandler');
+const cors = require('./middlewares/cors');
 const config = require('./config');
 const { logger, requestLoggingMiddleware } = require('./middlewares/logger');
 const rootRouter = require('./routes');
@@ -15,6 +16,9 @@ const app = express();
 
 // Добавление middleware для логирования запросов
 app.use(requestLoggingMiddleware);
+
+// Использование CORS:
+app.use(cors);
 
 app.use(helmet());
 app.use(express.json());
