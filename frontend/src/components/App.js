@@ -46,6 +46,26 @@ function App() {
   const [isSuccess, setIsSuccess] = useState(false);
 
   useEffect(() => {
+    const jwt = localStorage.getItem("jwt");
+
+    if (jwt) {
+      auth
+        .checkToken(jwt)
+        .then((res) => {
+          setIsLoggedIn(true);
+          setEmail(res.email);
+          history.push("/");
+        })
+        .catch((err) => {
+          if (err.status === 401) {
+            console.log("401 — Токен не передан или передан не в том формате");
+          }
+          console.log("401 — Переданный токен некорректен");
+        });
+    }
+  }, [history]);
+  
+  useEffect(() => {
     if (isLoggedIn) {
       api
         .getUserInfo()
@@ -64,26 +84,6 @@ function App() {
         .catch((err) => console.log(err));
     }
   }, [isLoggedIn]);
-
-  useEffect(() => {
-    const jwt = localStorage.getItem("jwt");
-
-    if (jwt) {
-      auth
-        .checkToken(jwt)
-        .then((res) => {
-          setIsLoggedIn(true);
-          setEmail(res.data.email);
-          history.push("/");
-        })
-        .catch((err) => {
-          if (err.status === 401) {
-            console.log("401 — Токен не передан или передан не в том формате");
-          }
-          console.log("401 — Переданный токен некорректен");
-        });
-    }
-  }, [history]);
 
   function handleRegisterSubmit(email, password) {
     auth
