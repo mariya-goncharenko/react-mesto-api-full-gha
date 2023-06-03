@@ -17,12 +17,18 @@ const app = express();
 // Добавление middleware для логирования запросов
 app.use(requestLoggingMiddleware);
 
-// Использование CORS:
-app.use(cors);
-
 app.use(helmet());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Использование CORS:
+app.use(cors);
+
+app.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадёт');
+  }, 0);
+});
 
 app.use(limiter);
 app.use(rootRouter);
