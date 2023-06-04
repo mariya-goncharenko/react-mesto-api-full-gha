@@ -1,4 +1,3 @@
-/* Попытка сделать через пакет.
 const allowedCors = [
   'https://marigoncharenko.nomoredomains.rocks',
   'http://marigoncharenko.nomoredomains.rocks',
@@ -31,4 +30,3 @@ module.exports = (req, res, next) => {
 
   return next();
 };
-*/
