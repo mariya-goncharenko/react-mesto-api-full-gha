@@ -23,7 +23,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Использование CORS:
-app.use(cors());
+app.use(cors);
 
 app.get('/crash-test', () => {
   setTimeout(() => {
