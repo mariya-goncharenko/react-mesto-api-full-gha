@@ -49,7 +49,7 @@ export default class Api {
   }
 
   //Метод для постановки лайков:
- /*addLike(cardId) {
+ addLike(cardId) {
     return fetch(this._options.baseUrl + "/cards/" + cardId + "/likes", {
       method: "PUT",
       headers: this._options.headers,
@@ -62,27 +62,7 @@ export default class Api {
       method: "DELETE",
       headers: this._options.headers,
     }).then((res) => this._getResponseData(res));
-  }*/
-
-  changeLikeCardStatus(id, isLiked) {
-    if (!isLiked) {
-      return this._getResponseData(`${this._baseUrl}/cards/${id}/likes`, {
-        method: 'PUT',
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
-          'Content-type': 'application/json'
-        },
-      });
-    } else {
-      return this._getResponseData(`${this._baseUrl}/cards/${id}/likes`, {
-        method: 'DELETE',
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
-          'Content-type': 'application/json'
-        },
-      });
-    };
-  };
+  }
 
   //Метод для удаления карточки:
   deleteCardMethod(cardId) {

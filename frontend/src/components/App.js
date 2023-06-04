@@ -168,7 +168,7 @@ function App() {
   }
 
 
-  /*function handleCardLike(card) {
+  function handleCardLike(card) {
     const isLiked = card.likes.some((i) => i === currentUser._id);
 
     (isLiked ? api.deleteLike(card._id) : api.addLike(card._id, true))
@@ -178,19 +178,7 @@ function App() {
         );
       })
       .catch((err) => console.log(err));
-  }*/
-
-  function handleCardLike(card) {
-    const isLiked = card.likes.some(user => user._id === currentUser._id);
-
-    api.changeLikeCardStatus(card._id, isLiked)
-      .then((cardLike) => {
-        setCards(state => state.map(c => c._id === card._id ? cardLike.data : c));
-      })
-      .catch((err) => {
-        console.log(`Ошибка в процессе добавления/снятия лайка карточки в галерее: ${err}`);
-      })
-  };
+  }
 
   function handleCardDelete(card) {
     api
