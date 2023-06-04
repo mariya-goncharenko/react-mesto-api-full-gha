@@ -16,7 +16,7 @@ const logger = winston.createLogger({
 // Middleware для логирования запросов
 const requestLoggingMiddleware = expressWinston.logger({
   transports: [
-    new winston.transports.File({ filename: 'request.log' }), // Для сохранения логов в файле
+    new winston.transports.File({ filename: 'error.log' }), // Для сохранения логов в файле
   ],
   format: winston.format.combine(
     winston.format.timestamp(),

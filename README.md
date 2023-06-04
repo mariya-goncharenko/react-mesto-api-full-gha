@@ -8,7 +8,7 @@
 
 ## Ссылки на проект
 
-IP-адрес 158.160.61.212
+IP 58.160.61.212
 
 Frontend https://marigoncharenko.nomoredomains.rocks
 
