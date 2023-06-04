@@ -86,7 +86,6 @@ export default class Api {
 
 const api = new Api({
   baseUrl: "https://api.goncharenko.nomoredomains.rocks",
-  //baseUrl: "http://localhost:3000",
   headers: {
     "Content-Type": "application/json",
     authorization: `Bearer ${localStorage.getItem("jwt")}`,
