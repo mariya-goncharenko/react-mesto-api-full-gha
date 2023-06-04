@@ -4,7 +4,7 @@
   
 Пожалуйста, прикрепите в это описание ссылку на сайт, размещенный на Яндекс.Облаке.
 
-Адрес репозитория: https://github.com/yandex-praktikum/react-mesto-api-full-gha
+Адрес репозитория: https://github.com/mariya-goncharenko/react-mesto-api-full-gha
 
 ## Ссылки на проект
 
