@@ -10,7 +10,7 @@ const BadRequestError = require('../errors/BadRequestError');
 module.exports.getUsers = (_, res, next) => {
   User
     .find({})
-    .then((users) => res.send({ users }))
+    .then((users) => res.send(users))
     .catch(next);
 };
 
@@ -27,7 +27,7 @@ module.exports.getUserId = (req, res, next) => {
   const { id } = req.params;
 
   findUserById(id)
-    .then((user) => res.send({ user }))
+    .then((user) => res.send(user))
     .catch((err) => {
       if (err instanceof CastError) {
         next(
@@ -46,7 +46,7 @@ module.exports.getCurrentUserInfo = (req, res, next) => {
   const { userId } = req.user;
 
   findUserById(userId)
-    .then((user) => res.send({ user }))
+    .then((user) => res.send(user))
     .catch(next);
 };
 
@@ -72,7 +72,7 @@ module.exports.updateUserProfile = (req, res, next) => {
   const { userId } = req.user;
 
   updateUserProfileData(userId, { name, about })
-    .then((user) => res.send({ user }))
+    .then((user) => res.send(user))
     .catch((err) => next(err));
 };
 
@@ -82,6 +82,6 @@ module.exports.updateUserAvatar = (req, res, next) => {
   const { userId } = req.user;
 
   updateUserProfileData(userId, { avatar })
-    .then((user) => res.send({ user }))
+    .then((user) => res.send(user))
     .catch((err) => next(err));
 };

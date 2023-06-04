@@ -2,9 +2,10 @@ const express = require('express');
 const mongoose = require('mongoose');
 const helmet = require('helmet');
 const { errors } = require('celebrate');
+const cors = require('cors');
 const limiter = require('./middlewares/rateLimiter');
 const errorHandler = require('./middlewares/errorHandler');
-const cors = require('./middlewares/cors');
+// const cors = require('./middlewares/cors');
 const config = require('./config');
 const { logger, requestLoggingMiddleware } = require('./middlewares/logger');
 const rootRouter = require('./routes');
@@ -22,7 +23,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Использование CORS:
-app.use(cors);
+app.use(cors());
 
 app.get('/crash-test', () => {
   setTimeout(() => {

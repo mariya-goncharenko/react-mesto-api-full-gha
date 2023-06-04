@@ -47,7 +47,7 @@ function App() {
 
   useEffect(() => {
     const jwt = localStorage.getItem("jwt");
-
+    console.log(jwt);
     if (jwt) {
       auth
         .checkToken(jwt)
@@ -64,26 +64,16 @@ function App() {
         });
     }
   }, [history]);
-  
+
   useEffect(() => {
     if (isLoggedIn) {
-      api
-        .getUserInfo()
-        .then((userData) => {
-          setCurrentUser(userData);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-
-      api
-        .getInitialCards()
-        .then((cardData) => {
-          setCards(cardData);
-        })
-        .catch((err) => console.log(err));
-    }
-  }, [isLoggedIn]);
+    Promise.all([api.getUserInfo(), api.getInitialCards()])
+      .then(([userData, cards]) => {
+        setCurrentUser(userData)
+        setCards(cards.data.reverse())
+      })
+      .catch((err) => console.log(err));
+  }}, [isLoggedIn])
 
   function handleRegisterSubmit(email, password) {
     auth
@@ -150,7 +140,7 @@ function App() {
     api
       .setNewCard(data)
       .then((newCard) => {
-        setCards([newCard, ...cards]);
+        setCards([newCard.data, ...cards]);
         closeAllPopups();
       })
       .catch((err) => console.log(err));
@@ -177,13 +167,14 @@ function App() {
     setCardIdWithDelete(card);
   }
 
+
   function handleCardLike(card) {
-    const isLiked = card.likes.some((i) => i._id === currentUser._id);
+    const isLiked = card.likes.some((i) => i === currentUser._id);
 
     (isLiked ? api.deleteLike(card._id) : api.addLike(card._id, true))
       .then((newCard) => {
         setCards((state) =>
-          state.map((c) => (c._id === newCard._id ? newCard : c))
+          state.map((c) => (c._id === newCard.data._id ? newCard.data : c))
         );
       })
       .catch((err) => console.log(err));
