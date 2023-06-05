@@ -45,35 +45,37 @@ function App() {
   const [isInfoToolTipPopupOpen, setInfoToolTipPopupOpen] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
 
-  useEffect(() => {
-    const jwt = localStorage.getItem("jwt");
-    console.log(jwt);
-    if (jwt) {
-      auth
-        .checkToken(jwt)
-        .then((res) => {
-          setIsLoggedIn(true);
-          setEmail(res.email);
-          history.push("/");
-        })
-        .catch((err) => {
-          if (err.status === 401) {
-            console.log("401 — Токен не передан или передан не в том формате");
-          }
-          console.log("401 — Переданный токен некорректен");
-        });
+  useEffect(() => { 
+    const jwt = localStorage.getItem("jwt"); 
+    console.log(jwt); 
+    if (jwt) { 
+      auth.checkToken(jwt) 
+        .then((res) => { 
+          setIsLoggedIn(true); 
+          setEmail(res.email); 
+          history.push("/"); 
+        }) 
+        .catch((err) => { 
+          if (err.status === 401) { 
+            console.log("401 — Токен не передан или передан не в том формате"); 
+          } 
+          console.log("401 — Переданный токен некорректен"); 
+        }); 
+    } 
+  }, [history]); 
+  
+  useEffect(() => { 
+    if (isLoggedIn) { 
+      Promise.all([api.getUserInfo(), api.getInitialCards()]) 
+        .then(([userData, cards]) => { 
+          setCurrentUser(userData); 
+          setCards(cards.data.reverse()); 
+        }) 
+        .catch((err) => console.log(err)); 
     }
-  }, [history]);
-
-  useEffect(() => {
-    if (isLoggedIn) {
-    Promise.all([api.getUserInfo(), api.getInitialCards()])
-      .then(([userData, cards]) => {
-        setCurrentUser(userData)
-        setCards(cards.data.reverse())
-      })
-      .catch((err) => console.log(err));
-  }}, [isLoggedIn])
+  }, [isLoggedIn]);
+  
+  
 
   function handleRegisterSubmit(email, password) {
     auth
@@ -107,6 +109,8 @@ function App() {
         } else if (err.status === 401) {
           console.log("401 - пользователь с email не найден");
         }
+        setInfoToolTipPopupOpen(true); 
+        setIsSuccess(false);
       });
   }
 
