@@ -13,14 +13,20 @@ export default class Api {
   //Метод для информации о пользователе:
   getUserInfo() {
     return fetch(this._options.baseUrl + "/users/me", {
-      headers: this._options.headers,
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      },
     }).then((res) => this._getResponseData(res));
   }
 
   //Метод для подключения к массиву карточек:
   getInitialCards() {
     return fetch(this._options.baseUrl + "/cards", {
-      headers: this._options.headers,
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      },
     }).then((res) => this._getResponseData(res));
   }
 
@@ -28,7 +34,10 @@ export default class Api {
   setEditUserInfo(data) {
     return fetch(this._options.baseUrl + "/users/me", {
       method: "PATCH",
-      headers: this._options.headers,
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      },
       body: JSON.stringify({
         name: data.name,
         about: data.about,
@@ -40,7 +49,10 @@ export default class Api {
   setNewCard(data) {
     return fetch(this._options.baseUrl + "/cards", {
       method: "POST",
-      headers: this._options.headers,
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      },
       body: JSON.stringify({
         name: data.name,
         link: data.link,
@@ -49,10 +61,13 @@ export default class Api {
   }
 
   //Метод для постановки лайков:
- addLike(cardId) {
+  addLike(cardId) {
     return fetch(this._options.baseUrl + "/cards/" + cardId + "/likes", {
       method: "PUT",
-      headers: this._options.headers,
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      },
     }).then((res) => this._getResponseData(res));
   }
 
@@ -60,7 +75,10 @@ export default class Api {
   deleteLike(cardId) {
     return fetch(this._options.baseUrl + "/cards/" + cardId + "/likes", {
       method: "DELETE",
-      headers: this._options.headers,
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      },
     }).then((res) => this._getResponseData(res));
   }
 
@@ -68,7 +86,10 @@ export default class Api {
   deleteCardMethod(cardId) {
     return fetch(this._options.baseUrl + "/cards/" + cardId, {
       method: "DELETE",
-      headers: this._options.headers,
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      },
     }).then((res) => this._getResponseData(res));
   }
 
@@ -76,7 +97,10 @@ export default class Api {
   setEditAvatar(data) {
     return fetch(this._options.baseUrl + "/users/me/avatar", {
       method: "PATCH",
-      headers: this._options.headers,
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      },
       body: JSON.stringify({
         avatar: data.avatar,
       }),
@@ -86,10 +110,6 @@ export default class Api {
 
 const api = new Api({
   baseUrl: "https://api.goncharenko.nomoredomains.rocks",
-  headers: {
-    "Content-Type": "application/json",
-    authorization: `Bearer ${localStorage.getItem("jwt")}`,
-  },
 });
 
 export { api };
